@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Command Injection Detection Terminal</title>
+
+<style>
+body {
+    background: black;
+    color: #00ff99;
+    font-family: Consolas, monospace;
+    margin: 0;
+}
+
+.header {
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    border-bottom: 2px solid #00ff99;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #00ff99;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #00ff99;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    background: black;
+    color: #00ff99;
+    border: 1px solid #00ff99;
+    padding: 10px;
+    font-size: 14px;
+    font-family: Consolas;
+}
+
+button {
+    background: #00ff99;
+    color: black;
+    padding: 10px 25px;
+    margin-top: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00cc77;
+}
+
+.terminal {
+    background: black;
+    margin-top: 15px;
+    padding: 10px;
+    height: 220px;
+    overflow-y: auto;
+    border: 1px solid #00ff99;
+    white-space: pre-line;
+    font-size: 14px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+COMMAND INJECTION DETECTION TERMINAL<br>
+</div>
+
+<div class="container">
+
+<h3>Paste C/C++ Source Code:</h3>
+<textarea id="codeInput" placeholder="Paste C/C++ source code here..."></textarea>
+
+<button onclick="startScan()">START ANALYSIS</button>
+
+<h3>Terminal Output:</h3>
+<div class="terminal" id="terminal"></div>
+
+</div>
+
+<div class="footer">
+Project by <b>B. Vikranth (24CSB0B12)</b>
+</div>
+
+<script>
+function typeWriter(text, color, callback) {
+    let terminal = document.getElementById("terminal");
+    let i = 0;
+    terminal.style.color = color;
+
+    function typing() {
+        if (i < text.length) {
+            terminal.innerHTML += text.charAt(i);
+            terminal.scrollTop = terminal.scrollHeight;
+            i++;
+            setTimeout(typing, 20);
+        } else {
+            if (callback) callback();
+        }
+    }
+    typing();
+}
+async function startScan() {
+    let code = document.getElementById("codeInput").value;
+    let terminal = document.getElementById("terminal");
+
+    terminal.innerHTML = "";
+    terminal.style.color = "#00ff99";
+
+    // Phase 1: frontend animated output
+    typeWriter("Initializing LLVM Static Analysis Engine...\n", "#00ff99", () => {
+        typeWriter("Parsing source code...\n", "#00ff99", () => {
+            typeWriter("Building AST...\n", "#00ff99", () => {
+                typeWriter("Running taint analysis...\n", "#00ff99", () => {
+                 typeWriter("........................................\n\n", "#00ff99", async () => {                 
+                    // Phase 2: backend result (printed once)
+                    let response = await fetch("http://127.0.0.1:5000/analyze", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ code: code })
+                    });
+
+                    let data = await response.json();
+                    let output = data.output;
+
+                    terminal.innerHTML += output;
+
+                   if (data.severity === "HIGH") {
+                         terminal.style.color = "red";
+                     } else if (data.severity === "MEDIUM") {
+                             terminal.style.color = "yellow";
+                            } else {
+                                terminal.style.color = "#00ff99";
+                             }
+
+                });
+            });
+        });
+    });
+});
+}
+
+</script>
+
+</body>
+</html>
