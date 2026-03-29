@@ -85,8 +85,7 @@ Command-Injection-Detector/
 │
 ├── taint_analysis.cpp     # Core LLVM analysis engine
 ├── backend.py             # Flask server
-├── templates/
-│   └── index.html         # Frontend interface
+├── index.html             # Frontend interface
 ├── test_cases/            # Sample programs
 └── README.md
 ```
