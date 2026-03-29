@@ -70,31 +70,7 @@ int main() {
 
 ---
 
-## 🟠 TC4: Medium Risk (strcpy)
-
-### Input
-
-```c
-#include <stdio.h>
-#include <string.h>
-
-int main() {
-    char input[100];
-    char buffer[200];
-
-    scanf("%s", input);
-    strcpy(buffer, input);
-}
-```
-
-### Expected Output
-
-* Vulnerability detected
-* Severity: MEDIUM
-
----
-
-## 🔵 TC5: snprintf Injection
+## 🔵 TC4: snprintf Injection
 
 ### Input
 
@@ -119,7 +95,7 @@ int main() {
 
 ---
 
-## 🟣 TC6: C++ Input Injection
+## 🟣 TC5: C++ Input Injection
 
 ### Input
 
@@ -142,7 +118,7 @@ int main() {
 
 ---
 
-## ⚪ TC7: Sanitized Input
+## ⚪ TC6: Sanitized Input
 
 ### Input
 
@@ -178,10 +154,9 @@ int main() {
 | TC1       | Direct Injection   | HIGH            |
 | TC2       | Safe Code          | SAFE            |
 | TC3       | Indirect Injection | HIGH            |
-| TC4       | strcpy Risk        | MEDIUM          |
-| TC5       | snprintf Injection | HIGH            |
-| TC6       | C++ Case           | HIGH            |
-| TC7       | Sanitized Input    | SAFE            |
+| TC4       | snprintf Injection | HIGH            |
+| TC5       | C++ Case           | HIGH            |
+| TC6       | Sanitized Input    | SAFE            |
 
 ---
 
